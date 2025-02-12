@@ -1,6 +1,6 @@
 # OpenAI Function Calling Example: Fetching Weather
 
-This Python script is based on the example in [OpenAI's function calling documentation](https://platform.openai.com/docs/guides/function-calling); it demonstrates how to use OpenAI's function calling capabilities to retrieve weather data from the Open-Meteo API based on a natural language query. It streams responses from OpenAI's GPT-4o model and automatically executes relevant API calls to fetch weather data.
+This Python script demonstrates how to use OpenAI's function calling capabilities to retrieve weather data from the Open-Meteo API based on user queries. It is inspired by the example in [OpenAI's function calling documentation](https://platform.openai.com/docs/guides/function-calling). It streams responses from OpenAI's GPT-4o model and automatically executes relevant API calls to fetch weather data.
 
 ## How Function Calling Works
 
@@ -52,3 +52,86 @@ OpenAI's function calling allows the model to recognize when an API call is need
     ```python
     python weather.py
     ```
+
+## 📊 Example Output
+
+```
+Streaming response:
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+Tool Call Streaming: get_weather
+
+API response:
+{'current': {'interval': 900,
+             'temperature_2m': 42.1,
+             'time': '2025-02-12T19:30'},
+ 'current_units': {'interval': 'seconds',
+                   'temperature_2m': '°F',
+                   'time': 'iso8601'},
+ 'elevation': 36.0,
+ 'generationtime_ms': 0.015616416931152344,
+ 'latitude': 48.86,
+ 'longitude': 2.3599997,
+ 'timezone': 'GMT',
+ 'timezone_abbreviation': 'GMT',
+ 'utc_offset_seconds': 0}
+
+Result from get_weather with arguments {'latitude': 48.8566, 'longitude': 2.3522}: The current temperature at latitude 48.8566, longitude 2.3522 is 42.1°F.
+
+API response:
+{'current': {'interval': 900,
+             'temperature_2m': 49.7,
+             'time': '2025-02-12T19:30'},
+ 'current_units': {'interval': 'seconds',
+                   'temperature_2m': '°F',
+                   'time': 'iso8601'},
+ 'elevation': 18.0,
+ 'generationtime_ms': 0.009775161743164062,
+ 'latitude': 37.763283,
+ 'longitude': -122.41286,
+ 'timezone': 'GMT',
+ 'timezone_abbreviation': 'GMT',
+ 'utc_offset_seconds': 0}
+
+Result from get_weather with arguments {'latitude': 37.7749, 'longitude': -122.4194}: The current temperature at latitude 37.7749, longitude -122.4194 is 49.7°F.
+
+Messages after executing tool calls:
+[{'content': 'What is the weather like in Paris and San Francisco today?',
+  'role': 'user'},
+ {'role': 'assistant',
+  'tool_calls': [ChoiceDeltaToolCall(index=0, id='call_63xV4oDmdmmS2i2Ix1TGQYdh', function=ChoiceDeltaToolCallFunction(arguments='{"latitude": 48.8566, "longitude": 2.3522}', name='get_weather'), type='function')]},
+ {'content': 'The current temperature at latitude 48.8566, longitude 2.3522 is '
+             '42.1°F.',
+  'name': 'get_weather',
+  'role': 'tool',
+  'tool_call_id': 'call_63xV4oDmdmmS2i2Ix1TGQYdh'},
+ {'role': 'assistant',
+  'tool_calls': [ChoiceDeltaToolCall(index=1, id='call_9VWb51HhP60tRwfaudwFrsCV', function=ChoiceDeltaToolCallFunction(arguments='{"latitude": 37.7749, "longitude": -122.4194}', name='get_weather'), type='function')]},
+ {'content': 'The current temperature at latitude 37.7749, longitude -122.4194 '
+             'is 49.7°F.',
+  'name': 'get_weather',
+  'role': 'tool',
+  'tool_call_id': 'call_9VWb51HhP60tRwfaudwFrsCV'}]
+
+Final response:
+The current weather is as follows:
+- In Paris, the temperature is 42.1°F.
+- In San Francisco, the temperature is 49.7°F.
+```
